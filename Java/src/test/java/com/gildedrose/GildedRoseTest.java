@@ -67,6 +67,18 @@ class GildedRoseTest {
     }
 
     @Test
+    void testSulfurasHandOfRagnaros3() {
+        Item[] items = new Item[] { new Item("Sulfuras, Hand of Ragnaros", 2, 49) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        Item item = app.items[0];
+        assertEquals(2, item.sellIn);
+        assertEquals(49, item.quality);
+    }
+
+    @Test
     void testBackstagePassesToATAFKAL80ETCConcert() {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20) };
         GildedRose app = new GildedRose(items);

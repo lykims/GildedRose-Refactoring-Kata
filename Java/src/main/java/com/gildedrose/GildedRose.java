@@ -8,20 +8,19 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            Item item = items[i];
-            updateQuality(item);
-            updateSellIn(item);
-            updateQualityAfterSellIn(item);
+        for (Item item : items) {
+            if (!isLegendaryItem(item.name)) {
+                updateQuality(item);
+                updateSellIn(item);
+                updateQualityAfterSellIn(item);
+            }
         }
     }
 
     private void updateQuality(Item item) {
         if (!item.name.equals("Aged Brie")
                 && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                decreaseQuality(item);
-            }
+            decreaseQuality(item);
         } else {
             increaseQuality(item);
             if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
@@ -36,18 +35,14 @@ class GildedRose {
     }
 
     private void updateSellIn(Item item) {
-        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            item.sellIn = item.sellIn - 1;
-        }
+        item.sellIn = item.sellIn - 1;
     }
 
     private void updateQualityAfterSellIn(Item item) {
         if (item.sellIn < 0) {
             if (!item.name.equals("Aged Brie")) {
                 if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                        decreaseQuality(item);
-                    }
+                    decreaseQuality(item);
                 } else {
                     item.quality = item.quality - item.quality;
                 }
@@ -67,5 +62,9 @@ class GildedRose {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
         }
+    }
+
+    private boolean isLegendaryItem(String itemName) {
+        return itemName.equals("Sulfuras, Hand of Ragnaros");
     }
 }
