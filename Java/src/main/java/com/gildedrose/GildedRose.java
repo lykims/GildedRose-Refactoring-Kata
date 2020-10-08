@@ -18,11 +18,11 @@ class GildedRose {
     }
 
     private void updateQuality(Item item) {
-        if (!isValuableItem(item.name)) {
-            decreaseQuality(item);
-        } else {
+        if (isValuableItem(item.name)) {
             increaseQuality(item);
             updateBackstagePassQuality(item);
+        } else {
+            decreaseQuality(item);
         }
     }
 
@@ -32,17 +32,17 @@ class GildedRose {
 
     private void updateQualityAfterSellIn(Item item) {
         if (item.sellIn < 0) {
-            if (!isValuableItem(item.name)) {
-                decreaseQuality(item);
-            } else {
+            if (isValuableItem(item.name)) {
                 increaseQuality(item);
                 updateBackstagePassQualityAfterSellIn(item);
+            } else {
+                decreaseQuality(item);
             }
         }
     }
 
     private void updateBackstagePassQuality(Item item) {
-        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        if (item.name.startsWith("Backstage passes")) {
             if (item.sellIn < 11) {
                 increaseQuality(item);
             }
@@ -53,7 +53,7 @@ class GildedRose {
     }
 
     private void updateBackstagePassQualityAfterSellIn(Item item) {
-        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        if (item.name.startsWith("Backstage passes")) {
             item.quality = 0;
         }
     }
@@ -76,6 +76,6 @@ class GildedRose {
 
     private boolean isValuableItem(String itemName) {
         return itemName.equals("Aged Brie")
-            || itemName.equals("Backstage passes to a TAFKAL80ETC concert");
+            || itemName.startsWith("Backstage passes");
     }
 }
