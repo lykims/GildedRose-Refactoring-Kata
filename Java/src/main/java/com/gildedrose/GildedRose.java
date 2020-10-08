@@ -38,6 +38,7 @@ class GildedRose {
                 updateBackstagePassQualityAfterSellIn(item);
             } else {
                 decreaseQuality(item);
+                updateConjuredItemQuality(item);
             }
         }
     }
