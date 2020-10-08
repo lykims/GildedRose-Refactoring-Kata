@@ -23,6 +23,7 @@ class GildedRose {
             updateBackstagePassQuality(item);
         } else {
             decreaseQuality(item);
+            updateConjuredItemQuality(item);
         }
     }
 
@@ -58,6 +59,12 @@ class GildedRose {
         }
     }
 
+    private void updateConjuredItemQuality(Item item) {
+        if (isConjuredItem(item.name)) {
+            decreaseQuality(item);
+        }
+    }
+
     private void decreaseQuality(Item item) {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
@@ -77,5 +84,9 @@ class GildedRose {
     private boolean isValuableItem(String itemName) {
         return itemName.equals("Aged Brie")
             || itemName.startsWith("Backstage passes");
+    }
+
+    private boolean isConjuredItem(String itemName) {
+        return itemName.startsWith("Conjured");
     }
 }
